@@ -7,13 +7,39 @@ export type StyleId =
 	| "pixel"
 	| "retro"
 	| "synthwave"
-	| "ocean";
+	| "ocean"
+	| "aurora"
+	| "jade-ink"
+	| "matrix"
+	| "industrial"
+	| "cosmos"
+	| "mono";
 
 export interface Rgb {
 	r: number;
 	g: number;
 	b: number;
 }
+
+export type StylePaletteKey =
+	| "accent"
+	| "success"
+	| "warning"
+	| "error"
+	| "muted"
+	| "dim"
+	| "pop";
+
+export type BeautifulThinkingLevel =
+	| "off"
+	| "minimal"
+	| "low"
+	| "medium"
+	| "high"
+	| "xhigh"
+	| "max";
+
+export type StyleThinkingPalette = Readonly<Record<BeautifulThinkingLevel, StylePaletteKey>>;
 
 /** All glyphs must be terminal-safe and semantically stable across styles. */
 export interface StyleIcons {
@@ -56,6 +82,10 @@ export interface StyleDef {
 		muted: ThemeColor;
 		dim: ThemeColor;
 		pop: ThemeColor;
+	};
+	editor: {
+		/** `native` preserves Pi's original thinking-level colors. */
+		thinking: StyleThinkingPalette | "native";
 	};
 	progress: {
 		filled: string[];
@@ -155,6 +185,22 @@ const FALLBACK = {
 	pop: "mdLink",
 } satisfies StyleDef["fallback"];
 
+const BASE_THINKING: StyleThinkingPalette = {
+	off: "dim",
+	minimal: "muted",
+	low: "success",
+	medium: "accent",
+	high: "pop",
+	xhigh: "warning",
+	max: "error",
+};
+
+function thinkingPalette(
+	overrides: Partial<Record<BeautifulThinkingLevel, StylePaletteKey>> = {},
+): StyleThinkingPalette {
+	return { ...BASE_THINKING, ...overrides };
+}
+
 const ROUNDED_FRAME: StyleDef["frame"] = {
 	headerTL: "╭",
 	headerTR: "╮",
@@ -182,6 +228,7 @@ const OPEN_TUI: StyleDef = {
 		pop: { r: 120, g: 160, b: 255 },
 	},
 	fallback: FALLBACK,
+	editor: { thinking: "native" },
 	progress: { filled: ["█"], empty: "░", left: "[", right: "]" },
 	workingIndicator: { frames: ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"], intervalMs: 80 },
 	icons: BASE_ICONS,
@@ -202,6 +249,9 @@ const CYBERPUNK: StyleDef = {
 		pop: { r: 255, g: 91, b: 214 },
 	},
 	fallback: { ...FALLBACK, pop: "thinkingHigh" },
+	editor: {
+		thinking: thinkingPalette({ medium: "warning", xhigh: "error", max: "accent" }),
+	},
 	progress: { filled: ["■"], empty: "·", left: "[", right: "]" },
 	workingIndicator: { frames: ["⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"], intervalMs: 80 },
 	icons: themedIcons({
@@ -229,6 +279,9 @@ const GRAFFITI: StyleDef = {
 		pop: { r: 76, g: 211, b: 255 },
 	},
 	fallback: { ...FALLBACK, accent: "warning", pop: "accent" },
+	editor: {
+		thinking: thinkingPalette({ medium: "pop", high: "accent" }),
+	},
 	progress: { filled: ["#"], empty: "-", left: "<", right: ">" },
 	workingIndicator: { frames: ["⠁", "⠂", "⠄", "⡀", "⢀", "⠠", "⠐", "⠈"], intervalMs: 80 },
 	icons: themedIcons({
@@ -266,6 +319,9 @@ const PIXEL: StyleDef = {
 		pop: { r: 187, g: 154, b: 247 },
 	},
 	fallback: FALLBACK,
+	editor: {
+		thinking: thinkingPalette({ medium: "warning", xhigh: "error", max: "accent" }),
+	},
 	progress: { filled: ["█"], empty: "·", left: "▐", right: "▌" },
 	workingIndicator: { frames: ["▖", "▌", "▘", "▀", "▝", "▐", "▗", "▄"], intervalMs: 80 },
 	icons: themedIcons({
@@ -304,6 +360,9 @@ const RETRO: StyleDef = {
 		pop: { r: 255, g: 218, b: 130 },
 	},
 	fallback: { ...FALLBACK, accent: "warning", pop: "warning" },
+	editor: {
+		thinking: thinkingPalette({ medium: "muted", high: "accent", xhigh: "pop" }),
+	},
 	progress: { filled: ["▓"], empty: "░", left: "[", right: "]" },
 	workingIndicator: { frames: ["▏", "▎", "▍", "▌", "▋", "▊", "▉", "▊", "▋", "▌", "▍", "▎"], intervalMs: 80 },
 	icons: themedIcons({
@@ -342,6 +401,9 @@ const SYNTHWAVE: StyleDef = {
 		pop: { r: 111, g: 188, b: 255 },
 	},
 	fallback: { ...FALLBACK, accent: "thinkingHigh", pop: "accent" },
+	editor: {
+		thinking: thinkingPalette({ low: "pop", medium: "success", high: "accent" }),
+	},
 	progress: { filled: ["━"], empty: "·", left: "/", right: "\\" },
 	workingIndicator: { frames: ["◜", "◠", "◝", "◞", "◡", "◟"], intervalMs: 80 },
 	icons: themedIcons({
@@ -369,6 +431,9 @@ const OCEAN: StyleDef = {
 		pop: { r: 113, g: 224, b: 255 },
 	},
 	fallback: { ...FALLBACK, pop: "success" },
+	editor: {
+		thinking: thinkingPalette({ medium: "pop", high: "accent" }),
+	},
 	progress: { filled: ["="], empty: "·", left: "(", right: ")" },
 	workingIndicator: { frames: ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█", "▇", "▆", "▅", "▄", "▃", "▂"], intervalMs: 80 },
 	icons: themedIcons({
@@ -382,6 +447,233 @@ const OCEAN: StyleDef = {
 	frame: ROUNDED_FRAME,
 };
 
+const AURORA: StyleDef = {
+	id: "aurora",
+	name: { en: "Aurora", zh: "极光" },
+	usePiPalette: false,
+	rgb: {
+		accent: { r: 96, g: 226, b: 202 },
+		success: { r: 145, g: 236, b: 177 },
+		warning: { r: 255, g: 213, b: 117 },
+		error: { r: 255, g: 112, b: 145 },
+		muted: { r: 156, g: 181, b: 196 },
+		dim: { r: 81, g: 105, b: 123 },
+		pop: { r: 180, g: 142, b: 255 },
+	},
+	fallback: { ...FALLBACK, pop: "thinkingHigh" },
+	editor: {
+		thinking: thinkingPalette({ medium: "warning", xhigh: "error", max: "accent" }),
+	},
+	progress: { filled: ["━"], empty: "·", left: "(", right: ")" },
+	workingIndicator: { frames: ["⠋", "⠙", "⠚", "⠞", "⠖", "⠦", "⠴", "⠲", "⠳", "⠓"], intervalMs: 80 },
+	icons: themedIcons({
+		model: "",
+		thinking: "",
+		cacheHit: "",
+		context: "",
+		session: "",
+		extensions: "",
+	}),
+	frame: ROUNDED_FRAME,
+};
+
+const JADE_INK: StyleDef = {
+	id: "jade-ink",
+	name: { en: "Jade Ink", zh: "墨玉" },
+	usePiPalette: false,
+	rgb: {
+		accent: { r: 77, g: 181, b: 145 },
+		success: { r: 129, g: 211, b: 159 },
+		warning: { r: 213, g: 180, b: 102 },
+		error: { r: 225, g: 95, b: 101 },
+		muted: { r: 147, g: 175, b: 158 },
+		dim: { r: 49, g: 82, b: 66 },
+		pop: { r: 160, g: 205, b: 128 },
+	},
+	fallback: { ...FALLBACK, accent: "success", pop: "success" },
+	editor: {
+		thinking: thinkingPalette({ xhigh: "error", max: "warning" }),
+	},
+	progress: { filled: ["◆"], empty: "·", left: "[", right: "]" },
+	workingIndicator: { frames: ["⠄", "⠆", "⠇", "⠋", "⠙", "⠸", "⠰", "⠠", "⠰", "⠸", "⠙", "⠋", "⠇", "⠆"], intervalMs: 80 },
+	icons: themedIcons({
+		model: "",
+		thinking: "",
+		cacheHit: "",
+		context: "",
+		session: "",
+		extensions: "",
+	}),
+	frame: {
+		headerTL: "┌",
+		headerTR: "┐",
+		headerBL: "└",
+		headerBR: "┘",
+		edTL: "┌",
+		edTR: "┐",
+		edBL: "└",
+		edBR: "┘",
+		rail: "│",
+		hr: "─",
+	},
+};
+
+const MATRIX: StyleDef = {
+	id: "matrix",
+	name: { en: "Matrix", zh: "黑客矩阵" },
+	usePiPalette: false,
+	rgb: {
+		accent: { r: 76, g: 255, b: 126 },
+		success: { r: 124, g: 255, b: 155 },
+		warning: { r: 202, g: 255, b: 95 },
+		error: { r: 255, g: 82, b: 82 },
+		muted: { r: 126, g: 180, b: 139 },
+		dim: { r: 55, g: 104, b: 69 },
+		pop: { r: 64, g: 220, b: 112 },
+	},
+	fallback: { ...FALLBACK, accent: "success", pop: "success" },
+	editor: {
+		thinking: thinkingPalette({ medium: "pop", high: "warning", xhigh: "error", max: "accent" }),
+	},
+	progress: { filled: ["1"], empty: "0", left: "[", right: "]" },
+	workingIndicator: {
+		frames: ["⠁", "⠉", "⠙", "⠚", "⠒", "⠂", "⠒", "⠲", "⠴", "⠤", "⠄", "⠤", "⠴", "⠲", "⠒", "⠂", "⠒", "⠚", "⠙", "⠉"],
+		intervalMs: 80,
+	},
+	icons: themedIcons({
+		model: "",
+		thinking: "",
+		cacheHit: "",
+		context: "",
+		session: "",
+		extensions: "",
+	}),
+	frame: {
+		headerTL: "┌",
+		headerTR: "┐",
+		headerBL: "└",
+		headerBR: "┘",
+		edTL: "┌",
+		edTR: "┐",
+		edBL: "└",
+		edBR: "┘",
+		rail: "│",
+		hr: "─",
+	},
+};
+
+const INDUSTRIAL: StyleDef = {
+	id: "industrial",
+	name: { en: "Industrial", zh: "工业机械" },
+	usePiPalette: false,
+	rgb: {
+		accent: { r: 255, g: 191, b: 61 },
+		success: { r: 149, g: 205, b: 85 },
+		warning: { r: 255, g: 219, b: 104 },
+		error: { r: 255, g: 91, b: 64 },
+		muted: { r: 170, g: 168, b: 158 },
+		dim: { r: 100, g: 99, b: 91 },
+		pop: { r: 210, g: 215, b: 221 },
+	},
+	fallback: { ...FALLBACK, accent: "warning", pop: "muted" },
+	editor: {
+		thinking: thinkingPalette({ medium: "pop", high: "accent", xhigh: "error", max: "warning" }),
+	},
+	progress: { filled: ["▓"], empty: "░", left: "{", right: "}" },
+	workingIndicator: { frames: ["┤", "┘", "┴", "└", "├", "┌", "┬", "┐"], intervalMs: 80 },
+	icons: themedIcons({
+		model: "",
+		thinking: "",
+		cacheHit: "",
+		context: "",
+		session: "",
+		extensions: "",
+		speed: "",
+	}),
+	frame: {
+		headerTL: "┏",
+		headerTR: "┓",
+		headerBL: "┗",
+		headerBR: "┛",
+		edTL: "┏",
+		edTR: "┓",
+		edBL: "┗",
+		edBR: "┛",
+		rail: "┃",
+		hr: "━",
+	},
+};
+
+const COSMOS: StyleDef = {
+	id: "cosmos",
+	name: { en: "Cosmos", zh: "深空" },
+	usePiPalette: false,
+	rgb: {
+		accent: { r: 117, g: 160, b: 255 },
+		success: { r: 108, g: 224, b: 210 },
+		warning: { r: 246, g: 205, b: 106 },
+		error: { r: 255, g: 101, b: 149 },
+		muted: { r: 154, g: 158, b: 198 },
+		dim: { r: 79, g: 82, b: 123 },
+		pop: { r: 198, g: 132, b: 255 },
+	},
+	fallback: { ...FALLBACK, pop: "thinkingHigh" },
+	editor: { thinking: thinkingPalette() },
+	progress: { filled: ["●"], empty: "·", left: "(", right: ")" },
+	workingIndicator: { frames: ["⢹", "⢺", "⢼", "⣸", "⣇", "⡧", "⡗", "⡏"], intervalMs: 80 },
+	icons: themedIcons({
+		model: "",
+		thinking: "",
+		cacheHit: "",
+		context: "",
+		session: "",
+		extensions: "",
+	}),
+	frame: ROUNDED_FRAME,
+};
+
+const MONO: StyleDef = {
+	id: "mono",
+	name: { en: "Mono", zh: "极简单色" },
+	usePiPalette: true,
+	rgb: {
+		accent: { r: 210, g: 210, b: 210 },
+		success: { r: 190, g: 190, b: 190 },
+		warning: { r: 220, g: 220, b: 220 },
+		error: { r: 235, g: 235, b: 235 },
+		muted: { r: 145, g: 145, b: 145 },
+		dim: { r: 95, g: 95, b: 95 },
+		pop: { r: 180, g: 180, b: 180 },
+	},
+	fallback: {
+		accent: "muted",
+		success: "muted",
+		warning: "warning",
+		error: "error",
+		muted: "dim",
+		dim: "dim",
+		pop: "muted",
+	},
+	editor: {
+		thinking: thinkingPalette({ minimal: "dim", low: "muted", medium: "muted", high: "accent" }),
+	},
+	progress: { filled: ["■"], empty: "·", left: "[", right: "]" },
+	workingIndicator: { frames: ["◐", "◓", "◑", "◒"], intervalMs: 80 },
+	icons: BASE_ICONS,
+	frame: {
+		headerTL: "┌",
+		headerTR: "┐",
+		headerBL: "└",
+		headerBR: "┘",
+		edTL: "┌",
+		edTR: "┐",
+		edBL: "└",
+		edBR: "┘",
+		rail: "│",
+		hr: "─",
+	},
+};
+
 export const STYLES: Record<StyleId, StyleDef> = {
 	"open-tui": OPEN_TUI,
 	cyberpunk: CYBERPUNK,
@@ -390,6 +682,12 @@ export const STYLES: Record<StyleId, StyleDef> = {
 	retro: RETRO,
 	synthwave: SYNTHWAVE,
 	ocean: OCEAN,
+	aurora: AURORA,
+	"jade-ink": JADE_INK,
+	matrix: MATRIX,
+	industrial: INDUSTRIAL,
+	cosmos: COSMOS,
+	mono: MONO,
 };
 
 export const STYLE_IDS = Object.keys(STYLES) as StyleId[];
@@ -401,7 +699,7 @@ export function getStyle(id: StyleId): StyleDef {
 export function paintFg(
 	theme: Theme,
 	style: StyleDef,
-	key: keyof StyleDef["rgb"],
+	key: StylePaletteKey,
 ): (s: string) => string {
 	if (style.usePiPalette) {
 		return (s) => theme.fg(style.fallback[key], s);
@@ -424,7 +722,7 @@ export type StylePaint = ReturnType<typeof paintFg>;
 export function getStylePaint(
 	theme: Theme,
 	style: StyleDef,
-): Record<keyof StyleDef["rgb"], StylePaint> {
+): Record<StylePaletteKey, StylePaint> {
 	return {
 		accent: paintFg(theme, style, "accent"),
 		success: paintFg(theme, style, "success"),
@@ -434,4 +732,32 @@ export function getStylePaint(
 		dim: paintFg(theme, style, "dim"),
 		pop: paintFg(theme, style, "pop"),
 	};
+}
+
+const THINKING_LEVELS = new Set<BeautifulThinkingLevel>([
+	"off",
+	"minimal",
+	"low",
+	"medium",
+	"high",
+	"xhigh",
+	"max",
+]);
+
+function normalizeThinkingLevel(
+	level: BeautifulThinkingLevel | string | undefined,
+): BeautifulThinkingLevel {
+	return level && THINKING_LEVELS.has(level as BeautifulThinkingLevel)
+		? (level as BeautifulThinkingLevel)
+		: "off";
+}
+
+export function getThinkingPaint(
+	theme: Theme,
+	style: StyleDef,
+	level: BeautifulThinkingLevel | string | undefined,
+): StylePaint {
+	const normalized = normalizeThinkingLevel(level);
+	if (style.editor.thinking === "native") return theme.getThinkingBorderColor(normalized);
+	return paintFg(theme, style, style.editor.thinking[normalized]);
 }

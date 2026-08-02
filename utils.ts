@@ -1,5 +1,4 @@
 import { isAbsolute, relative, resolve, sep } from "node:path";
-import type { ThinkingLevel } from "@earendil-works/pi-ai";
 import type { Theme, ThemeColor } from "@earendil-works/pi-coding-agent";
 import { truncateToWidth, visibleWidth } from "@earendil-works/pi-tui";
 
@@ -158,23 +157,6 @@ export function providerColor(provider: string): ThemeColor {
 	}
 }
 
-export function effortColor(level: ThinkingLevel | string | undefined): ThemeColor {
-	switch (level) {
-		case "minimal":
-			return "thinkingMinimal";
-		case "low":
-			return "thinkingLow";
-		case "medium":
-			return "thinkingMedium";
-		case "high":
-			return "thinkingHigh";
-		case "xhigh":
-			return "thinkingXhigh";
-		default:
-			return "thinkingMedium";
-	}
-}
-
 export function isEditorBorderLine(line: string): boolean {
 	const plain = stripAnsi(line);
 	if (/^─+$/.test(plain)) return true;
@@ -228,7 +210,7 @@ export function formatProviderLabel(provider: string | undefined): string {
 	return known[provider.toLowerCase()] ?? provider.charAt(0).toUpperCase() + provider.slice(1);
 }
 
-export function formatThinkingLabel(level: ThinkingLevel | string): string {
+export function formatThinkingLabel(level: string): string {
 	if (level === "off") return "thinking off";
 	return `${level} effort`;
 }

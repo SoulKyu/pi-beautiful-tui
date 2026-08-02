@@ -6,18 +6,20 @@ A polished, multilingual, and themeable terminal UI extension for the [Pi coding
 
 ## Features / 功能
 
-- Seven coordinated styles: OpenTUI, Cyberpunk, Graffiti, Pixel, Retro CRT, Synthwave, and Ocean
+- Thirteen coordinated styles, including OpenTUI, Cyberpunk, Aurora, Jade Ink, Matrix, Industrial, Cosmos, and Mono
 - Theme-specific Nerd Font icon packs with safe ASCII fallback
 - Custom header, footer, editor frame, progress bar, and working indicator
+- Theme-aware editor borders and thinking-level colors, with Pi-native Bash mode preserved
 - Session name, working directory, model, provider, context, token, cache-hit, cost, and timer displays
 - Per-run telemetry based on OpenTUI semantics: TPS, TTFT, duration, tokens, stream stalls, and cost per million tokens
 - Optional extension-status line; hidden by default
 - Settings UI in English and Chinese
 - No Git subprocesses, repository scanning, runtime probing, or version-detection subprocesses
 
-- 七套协调主题：OpenTUI、赛博朋克、涂鸦、像素、复古 CRT、合成波与海洋
+- 十三套协调主题，包括 OpenTUI、赛博朋克、极光、墨玉、黑客矩阵、工业机械、深空与极简单色
 - 每套主题拥有独立 Nerd Font 图标，并提供安全的 ASCII 回退
 - 自定义标题、页脚、编辑器边框、进度条与工作动画
+- 输入框边框与思维深度颜色随主题联动，同时保留 Pi 原生 Bash 模式颜色
 - 显示会话名、工作目录、模型、Provider、上下文、Token、缓存命中率、费用与计时
 - 基于 OpenTUI 语义的逐轮性能统计：TPS、TTFT、总耗时、Token、流式停顿及每百万 Token 费用
 - 可选扩展状态行，默认关闭
@@ -82,6 +84,12 @@ Settings include:
 | Retro CRT | 复古 CRT | Amber terminal and double-line frames |
 | Synthwave | 合成波 | Neon purple, pink, and blue |
 | Ocean | 海洋 | Cool blue and aqua palette |
+| Aurora | 极光 | Cyan, mint, and violet light trails |
+| Jade Ink | 墨玉 | Restrained jade green and ink-like lines |
+| Matrix | 黑客矩阵 | Phosphor green with binary progress bars |
+| Industrial | 工业机械 | Steel gray, warning amber, and heavy frames |
+| Cosmos | 深空 | Orbital blue and stellar violet |
+| Mono | 极简单色 | Quiet Pi-palette grayscale with minimal ornament |
 
 Nerd Font-capable terminals receive a semantic icon pack tailored to each style. Other terminals automatically receive single-cell ASCII icons. A patched font such as JetBrainsMono Nerd Font or Meslo Nerd Font is recommended.
 

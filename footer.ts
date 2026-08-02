@@ -2,13 +2,18 @@ import type { ExtensionContext, Theme } from "@earendil-works/pi-coding-agent";
 import { truncateToWidth, wrapTextWithAnsi } from "@earendil-works/pi-tui";
 import type { BeautifulConfig } from "./config.ts";
 import { getCopy } from "./i18n.ts";
-import { getStyle, getStylePaint, type StyleDef, type StylePaint } from "./styles.ts";
+import {
+	getStyle,
+	getStylePaint,
+	getThinkingPaint,
+	type StyleDef,
+	type StylePaint,
+} from "./styles.ts";
 import type { FooterState, ModelMeta, UsageTotals } from "./state.ts";
 import { getUsageTotals } from "./state.ts";
 import {
 	alignRight,
 	cacheHitColor,
-	effortColor,
 	fitSegmentsByPriority,
 	fmtTokens,
 	formatCwd,
@@ -164,7 +169,7 @@ function renderModelLine(
 	}
 	parts.push(paint.text(meta.model));
 	if (meta.effort && meta.effort !== "off") {
-		parts.push(theme.fg(effortColor(meta.effort), `${style.icons.thinking} ${meta.effort}`));
+		parts.push(getThinkingPaint(theme, style, meta.effort)(`${style.icons.thinking} ${meta.effort}`));
 	}
 	return parts.join(paint.dim(" · "));
 }

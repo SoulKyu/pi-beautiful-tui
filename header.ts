@@ -3,7 +3,7 @@ import type { Component, TUI } from "@earendil-works/pi-tui";
 import { truncateToWidth, visibleWidth } from "@earendil-works/pi-tui";
 import type { BeautifulConfig } from "./config.ts";
 import { getCopy } from "./i18n.ts";
-import { getStyle, getStylePaint, type StyleDef } from "./styles.ts";
+import { getStyle, getStylePaint, getThinkingPaint, type StyleDef } from "./styles.ts";
 import {
 	center,
 	collectPiCommandNames,
@@ -109,14 +109,18 @@ export class BeautifulHeader implements Component {
 		const innerWidth = width - 2;
 		const { leftWidth, rightWidth, useTips } = headerColumnWidths(innerWidth);
 		const model = formatModelLabel(this.ctx.model);
-		const effort = formatThinkingLabel(this.pi.getThinkingLevel());
+		const thinkingLevel = this.pi.getThinkingLevel();
+		const effort = formatThinkingLabel(thinkingLevel);
 		const cwd = formatCwd(this.ctx.cwd);
 
 		const logoLines = renderLogo(paint).map((line) => center(line, leftWidth));
 		const leftLines = [
 			...logoLines,
 			center(theme.bold(paint.accent(copy.header.slogan)), leftWidth),
-			center(paint.muted(`${copy.header.model}: ${model} · ${effort}`), leftWidth),
+			center(
+				`${paint.muted(`${copy.header.model}: ${model} · `)}${getThinkingPaint(theme, style, thinkingLevel)(effort)}`,
+				leftWidth,
+			),
 			center(paint.dim(cwd), leftWidth),
 		];
 

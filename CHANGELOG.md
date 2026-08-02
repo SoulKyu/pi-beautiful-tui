@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.2.0 - 2026-08-02
+
+### Added
+
+- Six coordinated styles: Aurora, Jade Ink, Matrix, Industrial, Cosmos, and Mono.
+- Theme-specific palettes, frames, progress bars, semantic icons, and continuous 80 ms working animations for every new style.
+- Per-style thinking-level colors shared by the editor border, header, and footer indicator; editor text remains unmodified.
+- Pi-native Bash mode border-color preservation in the custom editor.
+
 ## 0.1.1 - 2026-08-02
 
 ### Changed
