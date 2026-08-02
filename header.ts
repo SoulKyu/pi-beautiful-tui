@@ -94,7 +94,6 @@ export class BeautifulHeader implements Component {
 		const pool = collectPiCommandNames(pi.getCommands());
 		this.tipCommands = pickSlashCommandTips(pool, {
 			fixed: ["pi-beautiful-tui"],
-			exclude: ["beautiful-tui"],
 			count: 3,
 		});
 	}

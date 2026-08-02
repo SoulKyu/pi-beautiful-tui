@@ -283,9 +283,4 @@ export function registerSettingsCommand(
 		description: "Open the pi-beautiful-tui settings UI",
 		handler,
 	});
-	// Compatibility alias for the first local draft.
-	pi.registerCommand("beautiful-tui", {
-		description: "Alias for /pi-beautiful-tui",
-		handler,
-	});
 }
