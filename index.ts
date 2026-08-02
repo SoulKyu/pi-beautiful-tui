@@ -8,6 +8,9 @@ import { createInitialState, invalidateUsageCache, getModelMeta, type FooterStat
 import { getStyle, getStylePaint } from "./styles.ts";
 import { formatTurnTelemetry, TurnTelemetryTracker } from "./telemetry.ts";
 
+/** Footer timer displays whole seconds, so sub-second wakeups provide no visible benefit. */
+const FOOTER_REFRESH_INTERVAL_MS = 1000;
+
 function isInteractiveLaunch(): boolean {
 	if (!process.stdout.isTTY) return false;
 	const args = process.argv.slice(2);
@@ -110,7 +113,7 @@ export default function (pi: ExtensionAPI) {
 			requestFooterRender?.();
 		};
 		tick();
-		workingTimer = setInterval(tick, 250);
+		workingTimer = setInterval(tick, FOOTER_REFRESH_INTERVAL_MS);
 		workingTimer.unref?.();
 	};
 

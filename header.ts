@@ -79,6 +79,8 @@ export class BeautifulHeader implements Component {
 	private readonly ctx: ExtensionContext;
 	private readonly tipCommands: string[];
 	private readonly getConfig: () => BeautifulConfig;
+	private cachedKey: string | undefined;
+	private cachedLines: string[] | undefined;
 
 	constructor(
 		pi: ExtensionAPI,
@@ -100,18 +102,32 @@ export class BeautifulHeader implements Component {
 	render(width: number): string[] {
 		const config = this.getConfig();
 		const style = getStyle(config.style);
+		const model = formatModelLabel(this.ctx.model);
+		const thinkingLevel = this.pi.getThinkingLevel();
+		const cwd = formatCwd(this.ctx.cwd);
+		const cacheKey = JSON.stringify([
+			width,
+			config.style,
+			config.settingsLanguage,
+			model,
+			thinkingLevel,
+			cwd,
+		]);
+		if (this.cachedKey === cacheKey && this.cachedLines) return this.cachedLines;
+
 		const copy = getCopy(config.settingsLanguage);
 		const theme = this.ctx.ui.theme;
 		const paint = getStylePaint(theme, style);
 
-		if (width < 24) return [paint.accent(`Pi v${VERSION}`)];
+		if (width < 24) {
+			this.cachedKey = cacheKey;
+			this.cachedLines = [paint.accent(`Pi v${VERSION}`)];
+			return this.cachedLines;
+		}
 
 		const innerWidth = width - 2;
 		const { leftWidth, rightWidth, useTips } = headerColumnWidths(innerWidth);
-		const model = formatModelLabel(this.ctx.model);
-		const thinkingLevel = this.pi.getThinkingLevel();
 		const effort = formatThinkingLabel(thinkingLevel);
-		const cwd = formatCwd(this.ctx.cwd);
 
 		const logoLines = renderLogo(paint).map((line) => center(line, leftWidth));
 		const leftLines = [
@@ -158,12 +174,19 @@ export class BeautifulHeader implements Component {
 		lines.push(
 			borderLine(style.frame.headerBL, "", style.frame.headerBR, width, paint.accent, style),
 		);
-		return lines.map((line) => truncateToWidth(line, width, ""));
+		this.cachedKey = cacheKey;
+		this.cachedLines = lines.map((line) => truncateToWidth(line, width, ""));
+		return this.cachedLines;
 	}
 
-	invalidate(): void {}
+	invalidate(): void {
+		this.cachedKey = undefined;
+		this.cachedLines = undefined;
+	}
 
-	dispose(): void {}
+	dispose(): void {
+		this.invalidate();
+	}
 }
 
 export function installHeader(

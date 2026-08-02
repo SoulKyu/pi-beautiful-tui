@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.2.1 - 2026-08-02
+
+### Changed
+
+- Reduced the active footer timer from 250 ms to 1000 ms, matching its whole-second display precision.
+- Added state-aware header render caching to avoid rebuilding static header lines on every 80 ms working-animation frame.
+
 ## 0.2.0 - 2026-08-02
 
 ### Added
