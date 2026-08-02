@@ -183,7 +183,7 @@ const OPEN_TUI: StyleDef = {
 	},
 	fallback: FALLBACK,
 	progress: { filled: ["█"], empty: "░", left: "[", right: "]" },
-	workingIndicator: { frames: ["·", "•", "●", "•"], intervalMs: 120 },
+	workingIndicator: { frames: ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"], intervalMs: 80 },
 	icons: BASE_ICONS,
 	frame: ROUNDED_FRAME,
 };
@@ -203,7 +203,7 @@ const CYBERPUNK: StyleDef = {
 	},
 	fallback: { ...FALLBACK, pop: "thinkingHigh" },
 	progress: { filled: ["■"], empty: "·", left: "[", right: "]" },
-	workingIndicator: { frames: ["□", "▪", "■", "▪"], intervalMs: 100 },
+	workingIndicator: { frames: ["⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"], intervalMs: 80 },
 	icons: themedIcons({
 		model: "",
 		thinking: "",
@@ -230,7 +230,7 @@ const GRAFFITI: StyleDef = {
 	},
 	fallback: { ...FALLBACK, accent: "warning", pop: "accent" },
 	progress: { filled: ["#"], empty: "-", left: "<", right: ">" },
-	workingIndicator: { frames: [".", "o", "O", "o"], intervalMs: 120 },
+	workingIndicator: { frames: ["⠁", "⠂", "⠄", "⡀", "⢀", "⠠", "⠐", "⠈"], intervalMs: 80 },
 	icons: themedIcons({
 		model: "",
 		thinking: "",
@@ -267,7 +267,7 @@ const PIXEL: StyleDef = {
 	},
 	fallback: FALLBACK,
 	progress: { filled: ["█"], empty: "·", left: "▐", right: "▌" },
-	workingIndicator: { frames: ["▖", "▘", "▝", "▗"], intervalMs: 110 },
+	workingIndicator: { frames: ["▖", "▌", "▘", "▀", "▝", "▐", "▗", "▄"], intervalMs: 80 },
 	icons: themedIcons({
 		model: "",
 		thinking: "",
@@ -305,7 +305,7 @@ const RETRO: StyleDef = {
 	},
 	fallback: { ...FALLBACK, accent: "warning", pop: "warning" },
 	progress: { filled: ["▓"], empty: "░", left: "[", right: "]" },
-	workingIndicator: { frames: ["-", "\\", "|", "/"], intervalMs: 110 },
+	workingIndicator: { frames: ["▏", "▎", "▍", "▌", "▋", "▊", "▉", "▊", "▋", "▌", "▍", "▎"], intervalMs: 80 },
 	icons: themedIcons({
 		model: "",
 		thinking: "",
@@ -343,7 +343,7 @@ const SYNTHWAVE: StyleDef = {
 	},
 	fallback: { ...FALLBACK, accent: "thinkingHigh", pop: "accent" },
 	progress: { filled: ["━"], empty: "·", left: "/", right: "\\" },
-	workingIndicator: { frames: ["◇", "◆", "◇", "◈"], intervalMs: 120 },
+	workingIndicator: { frames: ["◜", "◠", "◝", "◞", "◡", "◟"], intervalMs: 80 },
 	icons: themedIcons({
 		model: "",
 		thinking: "",
@@ -370,7 +370,7 @@ const OCEAN: StyleDef = {
 	},
 	fallback: { ...FALLBACK, pop: "success" },
 	progress: { filled: ["="], empty: "·", left: "(", right: ")" },
-	workingIndicator: { frames: [".", "~", "=", "~"], intervalMs: 130 },
+	workingIndicator: { frames: ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█", "▇", "▆", "▅", "▄", "▃", "▂"], intervalMs: 80 },
 	icons: themedIcons({
 		model: "",
 		thinking: "",

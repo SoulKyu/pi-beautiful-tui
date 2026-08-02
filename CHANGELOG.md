@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.1.1 - 2026-08-02
+
+### Changed
+
+- Replaced abrupt four-frame working indicators with continuous, theme-specific motion sequences.
+- Standardized every working animation to Pi's native 80 ms frame interval.
+- Added proper attribution for spinner sequences adapted from cli-spinners.
+
 ## 0.1.0 - 2026-08-02
 
 ### Added

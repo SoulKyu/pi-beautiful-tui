@@ -112,6 +112,8 @@ pi-beautiful-tui 只接管界面组件并保存自身 JSON 配置；不会修改
 
 Inspired by [pi-open-tui](https://github.com/OldSuns/pi-open-tui). Portions of the telemetry implementation were adapted from pi-open-tui under the MIT License.
 
+Working-indicator sequences were designed with reference to [cli-spinners](https://github.com/sindresorhus/cli-spinners), also licensed under MIT.
+
 ## License
 
 [MIT](./LICENSE)

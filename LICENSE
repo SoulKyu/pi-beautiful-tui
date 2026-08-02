@@ -2,6 +2,7 @@ MIT License
 
 Copyright (c) 2026 smithyyang
 Copyright (c) 2026 pi-open-tui contributors (portions derived from pi-open-tui)
+Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (spinner sequences adapted from cli-spinners)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
