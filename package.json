@@ -1,0 +1,67 @@
+{
+  "name": "pi-beautiful-tui",
+  "version": "0.1.0",
+  "description": "A polished, multilingual and themeable TUI extension for the Pi coding agent.",
+  "type": "module",
+  "license": "MIT",
+  "author": "smithyyang",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smithyyang/pi-beautiful-tui.git"
+  },
+  "homepage": "https://github.com/smithyyang/pi-beautiful-tui#readme",
+  "bugs": {
+    "url": "https://github.com/smithyyang/pi-beautiful-tui/issues"
+  },
+  "keywords": [
+    "pi-package",
+    "pi",
+    "pi-coding-agent",
+    "pi-extension",
+    "tui",
+    "terminal",
+    "theme",
+    "telemetry"
+  ],
+  "files": [
+    "*.ts",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "npm run typecheck"
+  },
+  "pi": {
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-ai": ">=0.80",
+    "@earendil-works/pi-coding-agent": ">=0.80",
+    "@earendil-works/pi-tui": ">=0.80"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-ai": {
+      "optional": true
+    },
+    "@earendil-works/pi-coding-agent": {
+      "optional": true
+    },
+    "@earendil-works/pi-tui": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@earendil-works/pi-ai": "*",
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-tui": "*",
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.0"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  }
+}
