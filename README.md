@@ -106,9 +106,9 @@ At the end of an agent run, the extension can display:
 - Longest stream stall and stall count
 - Estimated cost per million tokens
 
-Telemetry is derived only from Pi's local lifecycle events and assistant usage metadata. It does not send analytics or make network requests.
+Telemetry always uses OpenTUI's original glyphs and Pi-theme colors, independent of the selected Beautiful TUI visual style. It is derived only from Pi's local lifecycle events and assistant usage metadata, and does not send analytics or make network requests.
 
-性能统计仅使用 Pi 本地生命周期事件与 assistant usage 数据，不发送分析数据，也不会产生额外网络请求。
+性能统计始终使用 OpenTUI 原始图标与 Pi 主题配色，不随 Beautiful TUI 视觉主题变化。它仅使用 Pi 本地生命周期事件与 assistant usage 数据，不发送分析数据，也不会产生额外网络请求。
 
 ## Privacy and side effects / 隐私与副作用
 

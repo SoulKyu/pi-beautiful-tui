@@ -10,7 +10,7 @@ import type {
 	Theme,
 } from "@earendil-works/pi-coding-agent";
 import type { TelemetryConfig } from "./config.ts";
-import { getStylePaint, type StyleDef } from "./styles.ts";
+import { getStyle } from "./styles.ts";
 import { fmtTokens, formatDuration } from "./utils.ts";
 
 const STALL_THRESHOLD_MS = 1000;
@@ -270,38 +270,29 @@ export function formatTurnTelemetry(
 	telemetry: TurnTelemetry,
 	theme: Theme,
 	config: TelemetryConfig,
-	style: StyleDef,
 ): string {
-	const glyphs = style.icons;
-	const paint = getStylePaint(theme, style);
+	// Keep telemetry identical to OpenTUI regardless of the selected Beautiful TUI style.
+	const glyphs = getStyle("open-tui").icons;
 	const parts: string[] = [];
 	if (config.tps) {
 		const value = telemetry.tps === null ? "—" : `${telemetry.tps.toFixed(1)} tok/s`;
-		parts.push(
-			telemetry.tps === null
-				? paint.muted(`${glyphs.speed} TPS ${value}`)
-				: paint.accent(`${glyphs.speed} TPS ${value}`),
-		);
+		parts.push(theme.fg(telemetry.tps === null ? "muted" : "accent", `${glyphs.speed} TPS ${value}`));
 	}
 	if (config.ttft) {
 		parts.push(theme.fg("text", `${glyphs.latency} TTFT ${formatTurnDuration(telemetry.ttftMs)}`));
 	}
 	if (config.duration) {
-		parts.push(paint.success(`${glyphs.done} ${formatTurnDuration(telemetry.totalMs)}`));
+		parts.push(theme.fg("success", `${glyphs.done} ${formatTurnDuration(telemetry.totalMs)}`));
 	}
 	if (config.tokens) {
-		parts.push(paint.accent(`${glyphs.input} ${fmtTokens(telemetry.inputTokens)}`));
-		parts.push(paint.success(`${glyphs.output} ${fmtTokens(telemetry.outputTokens)}`));
+		parts.push(theme.fg("accent", `${glyphs.input} ${fmtTokens(telemetry.inputTokens)}`));
+		parts.push(theme.fg("success", `${glyphs.output} ${fmtTokens(telemetry.outputTokens)}`));
 	}
 	if (config.stalls && telemetry.stallMs > 0) {
-		parts.push(
-			paint.warning(
-				`${glyphs.stall} stall ${telemetry.stallCount}x / ${formatTurnDuration(telemetry.stallMs)}`,
-			),
-		);
+		parts.push(theme.fg("warning", `${glyphs.stall} stall ${telemetry.stallCount}x / ${formatTurnDuration(telemetry.stallMs)}`));
 	}
 	if (config.cost && telemetry.rateUsdPerMTokens !== null) {
-		parts.push(paint.warning(`${glyphs.cost} $${telemetry.rateUsdPerMTokens.toFixed(2)}/M`));
+		parts.push(theme.fg("warning", `${glyphs.cost} $${telemetry.rateUsdPerMTokens.toFixed(2)}/M`));
 	}
 	return parts.join(` ${theme.fg("dim", "|")} `);
 }

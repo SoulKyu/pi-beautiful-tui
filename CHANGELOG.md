@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.2.2 - 2026-08-02
+
+### Changed
+
+- Decoupled turn telemetry from the selected visual style.
+- Restored OpenTUI's original telemetry glyphs and Pi-theme colors for TPS, TTFT, duration, tokens, stalls, cost, and separators.
+
 ## 0.2.1 - 2026-08-02
 
 ### Changed

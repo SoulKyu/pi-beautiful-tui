@@ -203,8 +203,7 @@ export default function (pi: ExtensionAPI) {
 	pi.on("agent_settled", (event, ctx) => {
 		const telemetry = turnTelemetry.handle(event);
 		if (!telemetry || !config.enabled || !config.telemetry.enabled || !isTuiContext(ctx)) return;
-		const style = getStyle(config.style);
-		const message = formatTurnTelemetry(telemetry, ctx.ui.theme, config.telemetry, style);
+		const message = formatTurnTelemetry(telemetry, ctx.ui.theme, config.telemetry);
 		if (message) ctx.ui.notify(message, "info");
 	});
 
